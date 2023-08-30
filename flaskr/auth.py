@@ -13,8 +13,9 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        Confirmarpassword = request.form['Confirmarpassword']
+        Confirmarpassword = request.form['password2']
         db = get_db()
         error = None
 
@@ -24,8 +25,10 @@ def register():
             error = 'Contraseña requerida.'
         #elif not Confirmarpassword:
         #    error = 'Confirmacion requerida.'
-        elif not password == Confirmarpassword:
+        elif not Confirmarpassword == password:
             error = 'Confirmacion incorrecta.'
+        elif not email:
+            error = 'Email requerido.'
 
             
       
