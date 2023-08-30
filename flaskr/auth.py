@@ -14,6 +14,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        Confirmarpassword = request.form['Confirmarpassword']
         db = get_db()
         error = None
 
@@ -21,6 +22,17 @@ def register():
             error = 'Usuario requerido.'
         elif not password:
             error = 'Contraseña requerida.'
+        #elif not Confirmarpassword:
+        #    error = 'Confirmacion requerida.'
+        elif not password == Confirmarpassword:
+            error = 'Confirmacion incorrecta.'
+
+            
+      
+
+        
+        
+
 
         if error is None:
             try:
@@ -30,7 +42,7 @@ def register():
                 )
                 db.commit()
             except db.IntegrityError:
-                error = f"User {username} is already registered."
+                error = f"El usuario {username} ya esta registrado."
             else:
                 return redirect(url_for("auth.login"))
 
@@ -52,7 +64,9 @@ def login():
         if user is None:
             error = 'Usuario incorrecto.'
         elif not check_password_hash(user['password'], password):
-            error = 'Contraseña incon.'
+            error = 'Contraseña incorrecta.'
+
+        
 
         if error is None:
             session.clear()
