@@ -72,7 +72,7 @@ def update(id):
         error = None
 
         if not title:
-            error = 'Title is required.'
+            error = 'Titulo requerido.'
 
         if error is not None:
             flash(error)
@@ -81,7 +81,7 @@ def update(id):
             db.execute(
                 'UPDATE post SET title = ?, body = ?'
                 ' WHERE id = ?',
-                (title, body, id)
+                (title, body, id)  # esta parte modificar, cambiando el body por email y el 
             )
             db.commit()
             return redirect(url_for('blog.index'))

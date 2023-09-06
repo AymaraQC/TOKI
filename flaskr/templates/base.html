@@ -5,14 +5,19 @@
   <h1>Flaskr</h1>
   <ul>
     {% if g.user %}
-    <li><span>{{ g.user['username'] }}</span></li>
+    <li><span>{{ g.user['username'] }} - {{ g.user['email'] }}</span></li>
+    <li><span></span></li>
+
+
+
+    
     <li>
       <a href="{{ url_for('auth.logout') }}">Iniciar sesión</a> {% else %}
     </li>
 
     <li><a href="{{ url_for('auth.register') }}">Registrarse</a></li>
     <li>
-      <a href="{{ url_for('auth.login') }}">acceder</a>
+      <a href="{{ url_for('auth.login') }}">acceder</a> <!-- acceder-->
       {% endif %}
     </li>
  

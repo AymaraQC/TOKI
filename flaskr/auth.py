@@ -16,6 +16,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         Confirmarpassword = request.form['password2']
+       
         db = get_db()
         error = None
 
@@ -30,18 +31,11 @@ def register():
         elif not email:
             error = 'Email requerido.'
 
-            
-      
-
-        
-        
-
-
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO user (username, password, email) VALUES (?, ?, ?)", #agregue el email
+                    (username, generate_password_hash(password), email),
                 )
                 db.commit()
             except db.IntegrityError:
