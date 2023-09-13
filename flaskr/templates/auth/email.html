@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Editar {% endblock %}</h1>
+{% endblock %} {% block content %}
+<form method="post">
+  <label for="emailanterior">Email anterior</label>
+  <input
+    name="emailanterior"
+    id="emailanterior"
+    value="{{ g.user['email'] }}"
+    readonly
+  />
+  <label for="body">Email nuevo</label>
+  <input name="emailnuevo" id="emailnuevo" required></input>
+  <input type="submit" value="Save" />
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+if request.method == 'POST':
+emailnuevo = request.form['title']
+error = None
+
+if not emailnuevo:
+    error = 'Titulo requerido.'
+
+if error is not None:
+    flash(error)
+else:
+    db = get_db()
+    db.execute(
+        'UPDATE post SET emailnuevo = ?'
+        ' WHERE id = ?',
+        (emailnuevo, g.user["id"])  # esta parte modificar, cambiando el body por email y el 
+    )
+    db.commit()
+    return redirect(url_for('blog.index'))
+
+return render_template('auth/email.html')
+
+*/

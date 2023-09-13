@@ -25,7 +25,7 @@ def register():
         elif not password:
             error = 'Contraseña requerida.'
         #elif not Confirmarpassword:
-        #    error = 'Confirmacion requerida.'
+        #   error = 'Confirmacion requerida.'
         elif not Confirmarpassword == password:
             error = 'Confirmacion incorrecta.'
         elif not email:
@@ -101,3 +101,31 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+#agregado
+@bp.route('/updatemail', methods=('GET', 'POST'))
+@login_required
+def cambiaremail():
+
+
+    if request.method == 'POST':
+        emailnuevo = request.form['emailnuevo']#pude ir emailnuevo
+        error = None
+
+        if not emailnuevo:
+            error = 'email nuevo requerido.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            #pedazo de consulta de la base
+            db.execute(
+                'UPDATE user SET email = ?'
+                ' WHERE id = ?',
+                (emailnuevo, g.user["id"])   
+            )
+            db.commit()
+            return redirect(url_for('blog.index'))
+
+    return render_template('auth/email.html')
